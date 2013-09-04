@@ -44,6 +44,8 @@ $mysql_database = "a6783224_oijbd";
 $mysql_user = "a6783224_user";
 $mysql_password = "edwin2013";
 
+Cambios en el servidor GIT
+
 
  
  
