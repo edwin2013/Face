@@ -1,0 +1,129 @@
+Error en includes\locale.inc on line 622
+Parche:
+-    $default = array_shift(array_keys($names));
++    list($default) = array_keys($names);
+
+Error:
+strict warning: Non-static method view::load_views() should not be called statically in C:\xampp\htdocs\drupal-6.28\sites\all\Modules\views\views.module on line 864.
+Parche:
+In order to fix this, I have edited includes/bootstrap.inc and put the following at the beginning of function drupal_set_message starting after line 991:
+// filter out strict warnings due to conflicts between views-2.x and PHP 5.4
+if( !strncmp($message, 'strict warning:', 14) ) {
+return isset($_SESSION['messages']) ? $_SESSION['messages'] : NULL;
+}
+
+Error:
+The Mollom API keys are not configured yet.
+Solucion: 
+Conseguir la Mollom API Key de la página web http://mollom.com/ . 
+Nos tenemos que registrar y añadir un nuevo site desde Manage Sites. 
+Manage Sites-Add new Subscription-Get Mollom Free-Complete subscription-View Keys
+Nos proporcionarán una clave privada y una pública que utilizaremos posteriorimente.
+
+Error
+Domain access failed to load during phase: bootstrap include. Please check your settings.php file and site configuration.
+Los permisos de acceso a contenido necesitan ser reconstruidos. Por favor visite esta página.
+Parche al final de Settings.php:
+include './sites/all/modules/domain/settings.inc';
+
+Error: Fatal error: Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\FaceOIJ\includes\database\database.inc on line 2139
+Solucion:
+Editar el archivo C:\xampp\php\php.ini del servidor, aumentar la directiva max_execution_time por ejemplo a 60 o mas y reiniciar el servidor:
+
+Error:
+Additional uncaught exception thrown while handling exception
+Uncaught exception thrown in shutdown function
+Uncaught exception thrown in session handler
+Solucion: En el archivo C:\xampp\mysql\bin\My.ini
+-- max_allowed_packet = 1M
+++ max_allowed_packet = 16M
+Y reiniciar MySQL
+
+Error:
+Fatal error: Call to undefined function _domain_bootstrap_modules() in C:\xampp\htdocs\FaceOIJ\sites\all\modules\domain\domain.module on line 1467
+Solucion:
+Incluir en el documento C:\xampp\htdocs\FaceOIJ\sites\default\settings.inc, las siguientes lineas:
+include DRUPAL_ROOT . '/sites/all/modules/domain/settings.inc';
+in your settings.php after $databases defined.
+
+ERORR
+Notice: Array to string conversion en panels_cache_object->cache() (línea 178 de C:\xampp\htdocs\FaceOIJ\profiles\commons\modules\contrib\panels\includes\plugins.inc).
+Parche:
+diff --git a/includes/plugins.inc b/includes/plugins.inc
+index 9077d38..8e5253e 100644
+--- a/includes/plugins.inc
++++ b/includes/plugins.inc
+@@ -175,12 +175,12 @@ class panels_cache_object {
+ 
+     // If there are any differences between the old and the new javascript then
+     // store them to be added later.
+-    if ($diff = array_diff_assoc($js, $start)) {
++    if ($diff = array_diff_key($js, $start)) {
+       $this->js = $diff;
+     }
+     // Special case the settings key and get the difference of the data.
+-    if ($settings_diff = array_diff_assoc($js['settings']['data'], $start['settings']['data'])) {
++    if ($settings_diff = array_diff_key($js['settings']['data'], $start['settings']['data'])) {
+       $this->js['settings'] = $settings_diff;
+     }
+	 
+ERROR:
+Node.js	Error reaching the Node.js server. Enable HTTP error-logging and check the dblog page for more details
+Can Drupal connect to the Node.js server?
+SOLUCION: PARCHE:
+diff --git a/nodejs.install b/nodejs.install
+index 33174b7..d00eef3 100644
+--- a/nodejs.install
++++ b/nodejs.install
+@@ -64,19 +64,20 @@ function nodejs_requirements($phase) {
+     $message = new StdClass;
+     $response = Nodejs::sendMessage($message);
+ 
+-    // drupal_http_request does the work for us so we just check to see
+-    // if it is an error or not and report back
+-    // $response->error: If an error occurred, the error message. Otherwise not set. 
+-    if (isset($response->error)) {
++    // Nodejs::httpRequest() does the work for us. It will return FALSE if the
++    // HTTP Request failed so we just check to see if that happened or not. If
++    // There's a response, we can connect to the server.
++    if ($response) {
+       $result = array(
+-        'value' => check_plain($response->error),
+-        'severity' => REQUIREMENT_ERROR,
++        'value' => t('The Node.js server was successfully reached.'),
++        'severity' => REQUIREMENT_OK,
+       );
+     }
++    // Http request to the server failed.
+     else {
+       $result = array(
+-        'value' => check_plain($response->status_message),
+-        'severity' => REQUIREMENT_OK,
++        'value' => 'Error reaching the Node.js server. Enable HTTP error-logging and check the dblog page for more details',
++        'severity' => REQUIREMENT_ERROR,
+       );
+     }
+
+	 Error:
+	 Fatal error:  Allowed memory size 
+	 Solucion:
+	 En el archivo .htaccess agregue este codigo:
+<IfModule mod_php5.c>
+php_value memory_limit 64M
+</IfModule>
+
+ERROR
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1226 User 'u818555101_ahm' has exceeded the
+'max_questions' resource (current value: 25000) in lock_may_be_available()
+(line 164 of /home/u818555101/public_html/includes/lock.inc).
+Solucion:
+El problema se da porque la base de datos exedio su capacidad, la solucion seria aumentar la capacidad de la base de datos. 
+
+
+
+
+
+
+
+
+

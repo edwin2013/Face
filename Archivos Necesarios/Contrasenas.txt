@@ -1,0 +1,56 @@
+Base de Datos:
+Nombre BD: faceoijsocial
+Usuario: faceoij
+Servidor: LOcal
+Contasena: faceoij2013
+
+Drupal:
+Usuario: faceoij
+Contasena: faceoij2013
+
+Claves de Mollom
+crear una cuenta en http://mollom.com/
+clic en Manage Sites
+Clic Add New Subscription
+Clic Get Mollom Free
+Clic Complete Subscription
+Clic View Keys
+Public Key:
+24b26878e2381e841b7cd257f2992a6a
+Private Key
+e82c48013c3bbf8bde71a64a35f02c25
+
+Hosting 000webhost.com
+IP: edwin18051982 o 31.170.160.84
+usuario
+a6783224
+password:
+edwin18051982
+BD: faceoij, user: oij, Contasena: faceoij2013
+$mysql_host = "mysql4.000webhost.com";
+$mysql_database = "a6783224_faceoij";
+$mysql_user = "a6783224_oij";
+$mysql_password = "faceoij2013";
+ uploaded to 'public_html' folder.
+ new passw:
+ edwin2013
+ 
+Otra BD 000webhost:
+Nombre: oijbd
+User: user
+pasww: edwin2013
+$mysql_host = "mysql4.000webhost.com";
+$mysql_database = "a6783224_oijbd";
+$mysql_user = "a6783224_user";
+$mysql_password = "edwin2013";
+
+
+ 
+ 
+ 
+ 
+ 
+
+
+
+
